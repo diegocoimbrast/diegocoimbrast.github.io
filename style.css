@@ -1,0 +1,11 @@
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.65; }
+body { margin: 0; background: #f3f5f9; color: #172239; }
+main { max-width: 48rem; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 1rem; }
+h1, h2 { line-height: 1.25; }
+h1 { font-size: clamp(1.8rem, 5vw, 2.7rem); }
+h2 { margin-top: 2rem; font-size: 1.3rem; }
+a { color: #234eb2; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+.eyebrow { color: #516482; }
+@media (max-width: 52rem) { main { margin: 1rem; padding: 1.3rem; } }
+@media (prefers-color-scheme: dark) { body { background: #111827; color: #e5eaf4; } main { background: #1c2638; } a { color: #adc7ff; } .eyebrow { color: #b0bdd3; } }
