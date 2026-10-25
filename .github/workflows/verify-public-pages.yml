@@ -1,0 +1,30 @@
+name: Verify public OAuth pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Verify anonymous HTTPS access to all OAuth pages
+        run: |
+          set -euo pipefail
+          for page in index.html privacy.html terms.html; do
+            ok=false
+            for attempt in $(seq 1 20); do
+              if curl --fail --silent --show-error --location --max-time 30 "https://diegocoimbrast.github.io/$page" -o /tmp/pse-page.html && grep -q 'PSE Remote Delivery Dev' /tmp/pse-page.html; then
+                ok=true
+                break
+              fi
+              sleep 10
+            done
+            if [ "$ok" != true ]; then
+              echo "::error::Public page unavailable: $page"
+              exit 1
+            fi
+            echo "Verified anonymous HTTPS: $page"
+          done
